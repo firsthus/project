@@ -14,9 +14,9 @@ public abstract class Account {
     private AccountState accountState;
 
 
-    protected Account(String accountNumber, BigDecimal initialBalance, Customer accountOwner, AccountType accountType) {
+    protected Account(String accountNumber, Customer accountOwner, AccountType accountType) {
         this.accountNumber = accountNumber;
-        this.balance = initialBalance;
+        this.balance = BigDecimal.valueOf(0);
         this.accountOwner = accountOwner;
         this.entryList = new ArrayList<>();
         this.accountType = accountType;
@@ -138,5 +138,7 @@ public abstract class Account {
         return balance;
     }
 
-    public abstract BigDecimal calculateInterest();
+
+
+
 }

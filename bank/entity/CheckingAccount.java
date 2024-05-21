@@ -6,10 +6,8 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.InterestCalcu
 public class CheckingAccount extends AccountType {
 
 
-
     protected CheckingAccount(InterestCalculationStrategy interestCalculationStrategy) {
         super(interestCalculationStrategy);
     }
-
 
 }

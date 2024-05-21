@@ -10,21 +10,21 @@ import java.math.BigDecimal;
 public class CreditCardAccount extends Account {
     private double monthlyInterestRate;
     private double minimumPaymentRate;
-    public CreditCardAccount(String accountNumber, BigDecimal initialBalance, Customer accountOwner, AccountType accountType, double MI, double MP) {
-        super(accountNumber, initialBalance, accountOwner, accountType);
+    public CreditCardAccount(String accountNumber, Customer accountOwner, AccountType accountType, double MI, double MP) {
+        super(accountNumber, accountOwner, accountType);
         this.monthlyInterestRate = MI;
         this.minimumPaymentRate = MP;
     }
-    @Override
-    public void addInterest() {
-        deposit(calculateInterest());
-        //todo: notify observer
-    }
+//    @Override
+//    public void addInterest() {
+//        deposit(calculateInterest());
+//        //todo: notify observer
+//    }
 
-    @Override
-    public BigDecimal calculateInterest() {
-        return getBalance().multiply(BigDecimal.valueOf(monthlyInterestRate));
-    }
+//    @Override
+//    public BigDecimal calculateInterest() {
+//        return getBalance().multiply(BigDecimal.valueOf(monthlyInterestRate));
+//    }
 
     public void charge(BigDecimal amount) {
         deposit(amount.negate());
