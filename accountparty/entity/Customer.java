@@ -1,29 +1,27 @@
 package edu.mum.cs.cs525.labs.exercises.project.accountparty.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public abstract class Customer {
 
     private String name;
-    private String Street;
-    private String City;
-    private String State;
-    private String Zip;
+    private String street;
+    private String city;
+    private String state;
+    private String zip;
     private String email;
-
     private final List<Account> listOfAccounts;
 
 
 
-    protected Customer(String name, String email,String Street, String City, String State, String Zip) {
+    protected Customer(String name, String email,String street, String city, String state, String zip) {
         this.name = name;
         this.email = email;
-        this.Street = Street;
-        this.City = City;
-        this.State = State;
-        this.Zip = Zip;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
         listOfAccounts = new ArrayList<>();
     }
 
@@ -62,20 +60,40 @@ public abstract class Customer {
     }
 
     public String getStreet() {
-        return Street;
+        return street;
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public String getState() {
-        return State;
+        return state;
     }
 
     public String getZip() {
-        return Zip;
+        return zip;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
 
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 }

@@ -139,6 +139,9 @@ public abstract class Account {
     }
 
 
+    public String getAccountNumber() {
+        return accountNumber;
+    }
 
 
 }
