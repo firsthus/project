@@ -2,6 +2,7 @@ package edu.mum.cs.cs525.labs.exercises.project.Accouhnts;
 
 public class CompanyAccount extends Accounts{
 
+
     @Override
     public void deposite() {
 
