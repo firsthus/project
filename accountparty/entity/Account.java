@@ -133,4 +133,10 @@ public abstract class Account {
     public  void  closeAccount(){
         accountState = AccountState.CLOSED;
     }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public abstract BigDecimal calculateInterest();
 }
