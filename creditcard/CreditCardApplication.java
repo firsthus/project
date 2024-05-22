@@ -3,7 +3,7 @@ package edu.mum.cs.cs525.labs.exercises.project.creditcard;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.factory.AccountTypeFactory;
-import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.Company;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CCCustomer;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.BronzeCreditCardTypeFactory;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.CreditCardAccountFactory;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.GoldCreditCardTypeFactory;
@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 
 public class CreditCardApplication {
     public static void main(String[] args) {
-        Customer company1 = new Company("Company 1", "info@company1.com", "1000 N, 4th street", "Fairfield", "IA", "52557", 5);
-        Customer company2 = new Company("Company 2", "info@company2.com", "1001 N, 5th street", "Des Moines", "IA", "52000", 50);
+        Customer company1 = new CCCustomer("Company 1", "info@company1.com", "1000 N, 4th street", "Fairfield", "IA", "52557");
+        Customer company2 = new CCCustomer("Company 2", "info@company2.com", "1001 N, 5th street", "Des Moines", "IA", "52000");
 
 
 
