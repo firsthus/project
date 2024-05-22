@@ -8,7 +8,6 @@ import java.util.List;
 
 public class RulesEngine {
     private final List<PostTransactionRule> postTransactionRules;
-    List<Observer> observers;
 
     public RulesEngine() {
         this.postTransactionRules = new ArrayList<>();

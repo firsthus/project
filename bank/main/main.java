@@ -3,15 +3,9 @@ package edu.mum.cs.cs525.labs.exercises.project.bank.main;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
-import edu.mum.cs.cs525.labs.exercises.project.bank.InteresetStrategy.SavingInterestStrategy;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.CustmerService;
-import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.AccountServiceinBank;
+import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.BankAccountService;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.CustomerService;
-import edu.mum.cs.cs525.labs.exercises.project.bank.entity.Custmers.Company;
-import edu.mum.cs.cs525.labs.exercises.project.bank.entity.Custmers.Person;
-import edu.mum.cs.cs525.labs.exercises.project.bank.factory.BankAccountFactory;
-import edu.mum.cs.cs525.labs.exercises.project.bank.factory.CheckingTypeFactory;
-import edu.mum.cs.cs525.labs.exercises.project.bank.factory.SavingTypeFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -44,11 +38,11 @@ public class main {
         Customer  person1=custmerService.CreateCustmer("person1","person1.email","streetPerson1","cit1",
                "State1","552570", LocalDate.of(1999,12,11));
 
-        AccountServiceinBank accountServiceinBank =new AccountServiceinBank(new AccountRepository());
+        BankAccountService bankAccountService =new BankAccountService(new AccountRepository());
 
-        Account Companyaccount = accountServiceinBank.createAccount(company1,"S");
+        Account Companyaccount = bankAccountService.createAccount(company1,"S");
 
-        Account Personalaccount = accountServiceinBank.createAccount(person1,"Ch"
+        Account Personalaccount = bankAccountService.createAccount(person1,"Ch"
         );
 
 

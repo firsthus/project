@@ -5,7 +5,7 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRe
 
 import java.math.BigDecimal;
 
-public abstract class AccountService implements AccountTransactionServiceInterface{
+public abstract class AccountService implements AccountTransactionService {
 
     private final AccountRepository accountRepository;
 

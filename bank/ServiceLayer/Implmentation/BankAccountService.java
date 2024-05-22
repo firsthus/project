@@ -9,8 +9,10 @@ import edu.mum.cs.cs525.labs.exercises.project.bank.factory.BankAccountFactory;
 import edu.mum.cs.cs525.labs.exercises.project.bank.factory.CheckingTypeFactory;
 import edu.mum.cs.cs525.labs.exercises.project.bank.factory.SavingTypeFactory;
 
-public class AccountServiceinBank extends AccountService {
-    public AccountServiceinBank(AccountRepository accountRepository) {
+public class BankAccountService extends AccountService {
+
+
+    public BankAccountService(AccountRepository accountRepository) {
         super(accountRepository);
     }
 
@@ -23,7 +25,6 @@ public class AccountServiceinBank extends AccountService {
             accountTypeFactory = new SavingTypeFactory();
         }
 
-
         BankAccountFactory bankAccountFactory = new BankAccountFactory();
         Account account= bankAccountFactory.createNewAccountForCustomer(customer,accountTypeFactory);
 
@@ -33,4 +34,8 @@ public class AccountServiceinBank extends AccountService {
     }
 
 
+    @Override
+    public String generateReport() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
