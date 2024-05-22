@@ -1,7 +1,8 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
-import java.awt.*;
-import javax.swing.*;
-
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.factory.AccountFactory;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.factory.CustomerFactory;
+import edu.mum.cs.cs525.labs.exercises.project.bank.factory.CompanyFactoryForBank;
 
 
 public class JDialog_AddCompAcc extends javax.swing.JDialog
@@ -142,13 +143,24 @@ public class JDialog_AddCompAcc extends javax.swing.JDialog
        parentframe.city=JTextField_CT.getText();
        parentframe.zip=JTextField_ZIP.getText();
        parentframe.state=JTextField_ST.getText();
-       if (JRadioButton_Chk.isSelected())
-           parentframe.accountType="Ch";
-           else
-           parentframe.accountType="S";
+	   parentframe.NumberOfEmployee=JTextField_NoOfEmp.getText();
+	   parentframe.Email=JTextField_EM.getText();
+
+
+
+       if (JRadioButton_Chk.isSelected()) {
+		   parentframe.accountType = "Ch";
+	   }
+           else {
+		   parentframe.accountType = "S";
+	   }
 	   parentframe.newaccount=true;
 	   dispose();
-			 
+
+
+
+
+
 	}
 
 	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event)
