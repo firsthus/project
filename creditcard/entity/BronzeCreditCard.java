@@ -1,12 +1,15 @@
 package edu.mum.cs.cs525.labs.exercises.project.creditcard.entity;
 
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.AccountType;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.InterestCalculationStrategy;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.interestStrategy.BronzeCreditCardInterestCalculationStrategy;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.minimumPaymentStrategy.BronzeMinimumPaymentStrategy;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.minimumPaymentStrategy.MinimumPaymentStrategy;
 
-import java.math.BigDecimal;
-
-public class BronzeCreditCard extends CreditCardAccount{
-    public BronzeCreditCard(String accountNumber,  Customer accountOwner, AccountType accountType) {
-        super(accountNumber, accountOwner, accountType, 0.10, 0.14);
+public class BronzeCreditCard extends AccountType {
+    private final MinimumPaymentStrategy minimumPaymentStrategy;
+    public BronzeCreditCard() {
+        super(new BronzeCreditCardInterestCalculationStrategy());
+        minimumPaymentStrategy = new BronzeMinimumPaymentStrategy();
     }
 }
