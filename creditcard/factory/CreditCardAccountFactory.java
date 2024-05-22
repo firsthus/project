@@ -13,4 +13,5 @@ public class CreditCardAccountFactory implements AccountFactory {
     public Account createNewAccountForCustomer(Customer customer, AccountTypeFactory accountTypeFactory) {
         return new CreditCardAccount(String.valueOf(System.currentTimeMillis()), customer, accountTypeFactory.provide());
     }
+
 }

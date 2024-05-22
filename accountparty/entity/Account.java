@@ -1,5 +1,6 @@
 package edu.mum.cs.cs525.labs.exercises.project.accountparty.entity;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public abstract class Account {
     private final List<AccountEntry> entryList;
     private final AccountType accountType;
     private AccountState accountState;
-
+    private BigDecimal previousBalance;
 
     protected Account(String accountNumber, Customer accountOwner, AccountType accountType) {
         this.accountNumber = accountNumber;
@@ -21,9 +22,19 @@ public abstract class Account {
         this.entryList = new ArrayList<>();
         this.accountType = accountType;
         this.accountState = AccountState.ACTIVE;
+        this.previousBalance = BigDecimal.valueOf(0);
     }
 
+    public BigDecimal getPreviousBalance() {
+        return this.previousBalance;
+    }
+    public void setPreviousBalance (BigDecimal previousBalance) {
+        this.previousBalance = previousBalance;
+    }
 
+    public List<AccountEntry> getEntryList() {
+        return new ArrayList<>(this.entryList);
+    }
     public void deposit(BigDecimal amount) {
         deposit(amount, "Deposit");
     }
@@ -131,9 +142,16 @@ public abstract class Account {
 
 
     public  void  closeAccount(){
+        BigDecimal accountBalance = getBalance();
+
+        if (accountBalance.compareTo(BigDecimal.ZERO) > 0) {
+            withdraw(accountBalance);
+        }
+        
         accountState = AccountState.CLOSED;
     }
 
+    
     public BigDecimal getBalance() {
         return balance;
     }
@@ -150,5 +168,11 @@ public abstract class Account {
         return accountNumber;
     }
 
+    public AccountType getAccountType() {
+        return accountType;
+    }
 
+    public Customer getAccountOwner() {
+        return accountOwner;
+    }
 }

@@ -8,7 +8,7 @@ public class Person extends Customer {
 
     private final LocalDate birthDate;
 
-    protected Person(String name, String email, String Street, String City, String State, String Zip, LocalDate dateOfBirth) {
+    public Person(String name, String email, String Street, String City, String State, String Zip, LocalDate dateOfBirth) {
         super(name, email, Street, City, State, Zip);
         this.birthDate=dateOfBirth;
     }

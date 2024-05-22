@@ -1,4 +1,4 @@
-package edu.mum.cs.cs525.labs.exercises.project.creditcard.interestStrategy;
+package edu.mum.cs.cs525.labs.exercises.project.creditcard.strategy.interestStrategy;
 
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.InterestCalculationStrategy;

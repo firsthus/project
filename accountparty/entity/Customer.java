@@ -11,7 +11,7 @@ public abstract class Customer {
     private String state;
     private String zip;
     private String email;
-    private final List<Account> listOfAccounts;
+    private final List<Account> accounts;
 
 
 
@@ -22,7 +22,7 @@ public abstract class Customer {
         this.city = city;
         this.state = state;
         this.zip = zip;
-        listOfAccounts = new ArrayList<>();
+        accounts = new ArrayList<>();
     }
 
 
@@ -51,12 +51,12 @@ public abstract class Customer {
 
 
     public void addAccount(Account account){
-        listOfAccounts.add(account);
+        accounts.add(account);
     }
 
 
     public List<Account> getAccounts(){
-        return listOfAccounts;
+        return accounts;
     }
 
     public String getStreet() {
