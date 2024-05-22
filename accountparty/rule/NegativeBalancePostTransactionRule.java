@@ -1,14 +1,13 @@
 package edu.mum.cs.cs525.labs.exercises.project.accountparty.rule;
 
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.AccountEntry;
 
 import java.math.BigDecimal;
 
-public class NegativeBalanceRule implements Rule {
+public class NegativeBalancePostTransactionRule implements PostTransactionRule {
     private final String message;
 
-    public NegativeBalanceRule(String message) {
+    public NegativeBalancePostTransactionRule(String message) {
         this.message = message;
     }
 

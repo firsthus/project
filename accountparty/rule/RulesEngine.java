@@ -7,19 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RulesEngine {
-    private final List<Rule> rules;
+    private final List<PostTransactionRule> postTransactionRules;
+    List<Observer> observers;
 
     public RulesEngine() {
-        this.rules = new ArrayList<>();
+        this.postTransactionRules = new ArrayList<>();
     }
 
-    public void addRule(Rule rule) {
-        rules.add(rule);
+    public void addRule(PostTransactionRule postTransactionRule) {
+        postTransactionRules.add(postTransactionRule);
     }
 
     public void applyRules(Account account, BigDecimal amount) {
-        for (Rule rule : rules) {
-            rule.apply(account, amount);
+        for (PostTransactionRule postTransactionRule : postTransactionRules) {
+            postTransactionRule.apply(account, amount);
         }
     }
 }
