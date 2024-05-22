@@ -1,5 +1,6 @@
 package edu.mum.cs.cs525.labs.exercises.project.accountparty.entity;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -131,9 +132,16 @@ public abstract class Account {
 
 
     public  void  closeAccount(){
+        BigDecimal accountBalance = getBalance();
+
+        if (accountBalance.compareTo(BigDecimal.ZERO) > 0) {
+            withdraw(accountBalance);
+        }
+        
         accountState = AccountState.CLOSED;
     }
 
+    
     public BigDecimal getBalance() {
         return balance;
     }
