@@ -24,4 +24,17 @@ public class AccountRepository {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Account not found"));
     }
+
+    public List<Account> getAllAccounts() {
+        return new ArrayList<>(ACCOUNT_DB);
+    }
+
+    public void update(Account account) {
+        int index = ACCOUNT_DB.indexOf(findByAccountNumber(account.getAccountNumber()));
+        if (index != -1) {
+            ACCOUNT_DB.set(index, account);
+        } else {
+            throw new IllegalArgumentException("Account not found for update");
+        }
+    }
 }

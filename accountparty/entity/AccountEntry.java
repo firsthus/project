@@ -57,4 +57,8 @@ public class AccountEntry {
     public String generateEntryReport() {
         return String.format("%s %s %s %s", transactionDate, transactionType, amount, description);
     }
+
+    public TransactionType getTransactionType() {
+        return this.transactionType;
+    }
 }
