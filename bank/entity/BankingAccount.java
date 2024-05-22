@@ -4,15 +4,15 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.AccountType;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
 
-import java.math.BigDecimal;
+public class BankingAccount extends Account {
 
 
-public class PersonalAccount extends Account {
 
-
-    public PersonalAccount(String accountNumber, Customer accountOwner, AccountType accountType) {
+    public BankingAccount(String accountNumber, Customer accountOwner, AccountType accountType) {
         super(accountNumber, accountOwner, accountType);
     }
+
+
 
 
 
