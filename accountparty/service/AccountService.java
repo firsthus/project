@@ -31,4 +31,7 @@ public class AccountService {
         fromAccount.transferFunds(toAccount, amount);
     }
 
+    public AccountRepository getAccountRepository() {
+        return accountRepository;
+    }
 }

@@ -31,4 +31,9 @@ public class AccountRepository {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Account not found"));
     }
+
+
+    public List<Account> getAccounts() {
+        return ACCOUNT_DB;
+    }
 }
