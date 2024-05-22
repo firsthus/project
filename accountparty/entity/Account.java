@@ -168,11 +168,4 @@ public abstract class Account {
         return accountNumber;
     }
 
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public Customer getAccountOwner() {
-        return accountOwner;
-    }
 }
