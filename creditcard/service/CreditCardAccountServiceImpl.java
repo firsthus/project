@@ -5,7 +5,8 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.AccountEntry;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.TransactionType;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountService;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.rule.RulesEngine;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountTransactionService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -13,9 +14,9 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
-public class CreditCardAccountServiceImpl extends AccountService {
-    public CreditCardAccountServiceImpl(AccountRepository accountRepository) {
-        super(accountRepository);
+public class CreditCardAccountServiceImpl extends AccountTransactionService {
+    public CreditCardAccountServiceImpl(AccountRepository accountRepository, RulesEngine rulesEngine) {
+        super(accountRepository, rulesEngine);
     }
 
     public String generateReport() {
