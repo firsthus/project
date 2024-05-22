@@ -11,6 +11,6 @@ public class CreditCardAccount extends Account {
     }
 
     public void charge(BigDecimal amount) {
-        deposit(amount.negate());
+        withdraw(amount);
     }
 }
