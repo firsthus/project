@@ -36,4 +36,18 @@ public class AccountRepository {
     public List<Account> getAccounts() {
         return ACCOUNT_DB;
     }
+
+    public List<Account> getAllAccounts() {
+        return new ArrayList<>(ACCOUNT_DB);
+    }
+
+
+    public void update(Account account) {
+        int index = ACCOUNT_DB.indexOf(findByAccountNumber(account.getAccountNumber()));
+        if (index != -1) {
+            ACCOUNT_DB.set(index, account);
+        } else {
+            throw new IllegalArgumentException("Account not found for update");
+        }
+    }
 }

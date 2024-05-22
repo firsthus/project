@@ -5,12 +5,12 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRe
 
 import java.math.BigDecimal;
 
-public class AccountService {
+public abstract class AccountService implements AccountTransactionServiceInterface{
 
     private final AccountRepository accountRepository;
 
 
-    public AccountService(AccountRepository accountRepository) {
+    protected AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
