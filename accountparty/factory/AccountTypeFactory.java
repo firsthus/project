@@ -5,5 +5,5 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.InterestCalcu
 
 public interface AccountTypeFactory {
 
-    AccountType provide(InterestCalculationStrategy interestCalculationStrategy);
+    AccountType provide();
 }
