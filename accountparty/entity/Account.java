@@ -156,6 +156,13 @@ public abstract class Account {
         return balance;
     }
 
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public Customer getAccountOwner() {
+        return accountOwner;
+    }
 
     public String getAccountNumber() {
         return accountNumber;
