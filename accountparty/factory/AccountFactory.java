@@ -5,5 +5,5 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
 
 public interface AccountFactory {
 
-    Account createNewAccountForCustomer(Customer customer);
+    Account createNewAccountForCustomer(Customer customer, AccountTypeFactory accountTypeFactory);
 }
