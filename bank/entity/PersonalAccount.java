@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class PersonalAccount extends Account {
 
 
-    protected PersonalAccount(String accountNumber, Customer accountOwner, AccountType accountType) {
+    public PersonalAccount(String accountNumber, Customer accountOwner, AccountType accountType) {
         super(accountNumber, accountOwner, accountType);
     }
 

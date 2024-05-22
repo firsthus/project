@@ -10,6 +10,23 @@ public class AccountRepository {
 
     private static final List<Account> ACCOUNT_DB = new ArrayList<>();
 
+    AccountRepository accountRepository ;
+
+    public AccountRepository() {
+        this.getAccountRepository();
+    }
+
+    public AccountRepository getAccountRepository(){
+        if(accountRepository == null) {
+            synchronized (AccountRepository.class) {
+                if(accountRepository == null) {
+                    accountRepository = new AccountRepository();
+                }
+            }
+        }
+        return accountRepository;
+    }
+
 
 
     public void save(Account account) {
