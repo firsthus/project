@@ -1,6 +1,7 @@
 package edu.mum.cs.cs525.labs.exercises.project.accountparty.service;
 
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.notification.EmailSender;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.notification.Observable;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.notification.Observer;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
@@ -19,6 +20,7 @@ public class AccountTransactionService implements Observable {
 
     public AccountTransactionService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
+        registerListeners();
     }
 
 
@@ -66,6 +68,10 @@ public class AccountTransactionService implements Observable {
                 }
             }
         }
+    }
+
+    private void registerListeners() {
+        this.add("email", EmailSender.getInstance());
     }
 
 }
