@@ -1,16 +1,17 @@
-package edu.mum.cs.cs525.labs.exercises.project.ui.ccard;
+package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
 /*
 		A basic implementation of the JDialog class.
 */
 
-import java.awt.*;
+import edu.mum.cs.cs525.labs.exercises.project.ui.ccard.CardFrm;
+
 import javax.swing.*;
 
-public class JDialogGenBill extends javax.swing.JDialog
+public class JDialogReport extends JDialog
 {
     String billstring;
-    
-	public JDialogGenBill(CardFrm parent)
+
+	public JDialogReport(BankFrm parent)
 	{
 		super(parent);
 		
@@ -25,17 +26,18 @@ public class JDialogGenBill extends javax.swing.JDialog
 		setVisible(false);
 		getContentPane().add(JScrollPane1);
 		JScrollPane1.setBounds(24,24,358,240);
+		//JScrollPane1.getViewport().add(JTextField1);
+		//JTextField1.setBounds(0,0,355,237);
 
-
-		JTextArea1.setText(parent.creditCardAccountService.generateReport());
+		JTextArea1.setText(parent.accountService.generateReport());
 		JTextArea1.setEditable(false);
 		JTextArea1.setLineWrap(true);
 		JTextArea1.setWrapStyleWord(true);
 
 		JScrollPane1.getViewport().add(JTextArea1);
-		JTextArea1.setBounds(0, 0, 355, 237);
-		//JScrollPane1.getViewport().add(JTextField1);
-		//JTextField1.setBounds(0,0,355,237);
+		JTextArea1.setBounds(0, 0, 490, 237);
+
+
 		JButton_OK.setText("OK");
 		JButton_OK.setActionCommand("OK");
 		getContentPane().add(JButton_OK);
@@ -43,7 +45,7 @@ public class JDialogGenBill extends javax.swing.JDialog
 
 		// generate the string for the monthly bill
 
-		//JTextField1.setText(parent.creditCardAccountService.generateReport());
+		//JTextField1.setText(parent.accountService.generateReport());
 		//}}
 	
 		//{{REGISTER_LISTENERS
@@ -55,9 +57,9 @@ public class JDialogGenBill extends javax.swing.JDialog
 
 
 	//{{DECLARE_CONTROLS
-	javax.swing.JScrollPane JScrollPane1 = new javax.swing.JScrollPane();
-	javax.swing.JTextField JTextField1 = new javax.swing.JTextField();
-	javax.swing.JButton JButton_OK = new javax.swing.JButton();
+	JScrollPane JScrollPane1 = new JScrollPane();
+	JTextField JTextField1 = new JTextField();
+	JButton JButton_OK = new JButton();
 	javax.swing.JTextArea JTextArea1 = new javax.swing.JTextArea();
 	//}}
 
