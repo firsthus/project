@@ -16,6 +16,9 @@ import edu.mum.cs.cs525.labs.exercises.project.bank.rule.PersonalAccountEmailRul
 import java.time.LocalDate;
 import java.util.List;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public class BankAccountService extends AccountService {
 
 
@@ -48,6 +51,18 @@ public class BankAccountService extends AccountService {
 
     public String getAccountNumber(Account account) {
         return account.getAccountNumber();
+    }
+
+    public List<Account> getAllAccounts() {
+        return this.getAccountRepository().getAllAccounts();
+    }
+
+    public BigDecimal getBalance(Account account) {
+        return account.getBalance();
+    }
+
+    public Account getAccount(String accountNumber) {
+        return this.getAccountRepository().findByAccountNumber(accountNumber);
     }
 
 

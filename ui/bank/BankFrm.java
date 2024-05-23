@@ -1,16 +1,18 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
 
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountService;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.CustmerService;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.BankAccountService;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.CustomerService;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.math.BigDecimal;
 
 /**
  * A basic JFC based application.
@@ -27,13 +29,25 @@ public class BankFrm extends javax.swing.JFrame
     private JScrollPane JScrollPane1;
     BankFrm myframe;
     private Object rowdata[];
-	CustmerService custmerService=new CustomerService();
+	CustmerService custmerService = new CustomerService();
 	BankAccountService accountService = new BankAccountService(new AccountRepository());
 
     
 	public BankFrm()
 	{
 		myframe = this;
+
+//		Customer person = custmerService.CreateCustmer("Festus Audu", "festus@cs.mum.edu", "1000 N 4th St",
+//				"Santa Clara","CA","95050", LocalDate.of(1990, 12, 12));
+//		Account account = accountService.createAccount(person, "Ch");
+//
+//		Customer person2 = custmerService.CreateCustmer("Malik Amman", "malik@cs.mum.edu", "1000 N 4th St",
+//				"Santa Clara","CA","95050", LocalDate.of(1999, 12, 12));
+//		Account account2 = accountService.createAccount(person2, "S");
+//
+//		Customer person3 = custmerService.CreateCustmer("Dormanic", "domanic@cs.mum.edu", "1000 N 4th St",
+//				"Santa Clara","CA","95050", 4);
+//		Account account3 = accountService.createAccount(person3, "S");
 
 		setTitle("Bank Application.");
 		setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
@@ -274,8 +288,12 @@ public class BankFrm extends javax.swing.JFrame
 		    // compute new amount
             long deposit = Long.parseLong(amountDeposit);
             String samount = (String)model.getValueAt(selection, 5);
-            long currentamount = Long.parseLong(samount);
-		    long newamount=currentamount+deposit;
+//            long currentamount = Long.parseLong(samount);
+
+			BigDecimal currentamount = new BigDecimal(samount);
+			BigDecimal newamount=currentamount.add(BigDecimal.valueOf(deposit));
+
+//		    long newamount=currentamount+deposit;
 		    model.setValueAt(String.valueOf(newamount),selection, 5);
 		}
 		
@@ -297,30 +315,44 @@ public class BankFrm extends javax.swing.JFrame
 		    // compute new amount
             long deposit = Long.parseLong(amountDeposit);
             String samount = (String)model.getValueAt(selection, 5);
-            long currentamount = Long.parseLong(samount);
-		    long newamount=currentamount-deposit;
+
+			BigDecimal currentamount = new BigDecimal(samount);
+			BigDecimal newamount=currentamount.subtract(BigDecimal.valueOf(deposit));
+
+//			long currentamount = Long.parseLong(samount);
+//		    long newamount=currentamount-deposit;
 		    model.setValueAt(String.valueOf(newamount),selection, 5);
-		    if (newamount <0){
+//		    if (newamount <0){
+			if(newamount.equals(0)){
 		       JOptionPane.showMessageDialog(JButton_Withdraw, " Account "+accnr+" : balance is negative: $"+String.valueOf(newamount)+" !","Warning: negative balance",JOptionPane.WARNING_MESSAGE);
 		    }
 		}
 		
 		
 	}
-	
+
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event)
 	{
+
 		  JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
-		  accountService.getAccountRepository().getAllAccounts().forEach(e ->{
-			  if(!(e.getBalance().equals(0))){
-				  e.addInterest();
-			  }else{
-				  System.out.println("your account balance is zero sorry we cannot add interest to it");
-			  }
+		  accountService.addInterestToAllAccounts();
+
+		  accountService.getAllAccounts().forEach(account -> {
+			  System.out.println("Account Number: " + account.getAccountNumber() + " Balance: " + account.getBalance());
 		  });
-		accountService.getAccountRepository().getAccounts().forEach(e -> System.out.println(e.getBalance()));
 
+		  for(int i=0;i<model.getRowCount();i++){
+			  String accnr = (String) model.getValueAt(i, 0);
+			  Account account= accountService.getAccount(accnr);
+			  BigDecimal newBalance = accountService.getBalance(account);
+			  updateAmountField(i, newBalance);
 
+		  }
 
 	}
+
+	public void updateAmountField(int row, BigDecimal newAmount) {
+		model.setValueAt(String.valueOf(newAmount), row, 5);
+	}
+
 }

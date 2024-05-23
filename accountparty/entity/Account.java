@@ -35,6 +35,9 @@ public abstract class Account {
     public List<AccountEntry> getEntryList() {
         return new ArrayList<>(this.entryList);
     }
+
+
+
     public void deposit(BigDecimal amount) {
         deposit(amount, "Deposit");
     }
@@ -79,8 +82,12 @@ public abstract class Account {
 
     public void addInterest(){
         BigDecimal interest = calculateInterest(this);
+
+        if (interest.compareTo(BigDecimal.ZERO) <= 0) {
+            return;
+        }
+
         deposit(interest, "Interest");
-         //Todo add an interest account to the Bank for general use
     }
 
 
@@ -88,7 +95,6 @@ public abstract class Account {
         validateForTransfer(toAccount, amount);
         withdraw(amount);
         toAccount.deposit(amount);
-        //todo: Re-implement this method
     }
 
 
