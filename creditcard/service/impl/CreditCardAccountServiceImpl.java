@@ -9,20 +9,24 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.notification.EmailSe
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.rule.RulesEngine;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountService;
-import edu.mum.cs.cs525.labs.exercises.project.bank.rule.CompanyAccountEmailRule;
-import edu.mum.cs.cs525.labs.exercises.project.bank.rule.PersonalAccountEmailRule;
+
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.rule.PersonalAccountEmailRule;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CCCustomer;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CreditCardAccount;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CreditCardAccountType;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.BronzeCreditCardTypeFactory;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.CreditCardAccountFactory;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.GoldCreditCardTypeFactory;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.SilverCreditCardTypeFactory;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.rule.CompanyAccountEmailRule;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CreditCardAccountServiceImpl extends AccountService {
 
@@ -54,14 +58,18 @@ public class CreditCardAccountServiceImpl extends AccountService {
 
     @Override
     public String generateReport() {
-        List<Account> accounts = getAccountRepository().getAllAccounts();
+        List<Account> allAccounts = getAccountRepository().getAllAccounts();
+        List<CreditCardAccount> accounts = allAccounts.stream()
+                .filter(CreditCardAccount.class::isInstance)
+                .map(CreditCardAccount.class::cast)
+                .toList();
         StringBuilder report = new StringBuilder("Credit Card Monthly Reports:\n");
 
         YearMonth lastMonth = YearMonth.now().minusMonths(0);
         LocalDate from = lastMonth.atDay(1);
         LocalDate to = lastMonth.atEndOfMonth();
 
-        for (Account account : accounts) {
+        for (CreditCardAccount account : accounts) {
 
             BigDecimal previousBalance = account.getPreviousBalance();
             BigDecimal totalCharges = BigDecimal.ZERO;
@@ -72,20 +80,24 @@ public class CreditCardAccountServiceImpl extends AccountService {
                 if (entry.getTransactionDate().toLocalDate().isAfter(from) && entry.getTransactionDate().toLocalDate().isBefore(to)) {
                     if (entry.getTransactionType() == TransactionType.CREDIT) {
                         totalCredits = totalCredits.add(entry.getAmount());
-                        System.out.println("   totalCredits = " + totalCredits);
                     } else if (entry.getTransactionType() == TransactionType.DEBIT) {
                         totalCharges = totalCharges.add(entry.getAmount());
-                        System.out.println("   totalCharges = " + totalCharges);
                     }
                 }
             }
 
+            CreditCardAccountType accountType = (CreditCardAccountType) account.getAccountType();
+            BigDecimal rate = Objects.requireNonNullElse(
+                    accountType.getInterestCalculationStrategy().getRate(), BigDecimal.ZERO);
+            BigDecimal minimumPaymentRate = Objects.requireNonNullElse(accountType.getMinimumPaymentStrategy().getRate()
+                    , BigDecimal.ZERO);
             BigDecimal newBalance = previousBalance.subtract(totalCredits).add(totalCharges).add(
-                    (previousBalance.subtract(totalCredits)).multiply(new BigDecimal("0.01")));
-            BigDecimal totalDue = newBalance.multiply(new BigDecimal("0.10")); //Todo: Get the actual rate from the account type
-            if (totalDue.compareTo(BigDecimal.ZERO) < 0) {
-                totalDue = BigDecimal.ZERO;
-            }
+                    (previousBalance.subtract(totalCredits)).multiply(rate));
+
+            BigDecimal totalDue = newBalance.multiply(minimumPaymentRate);
+//            if (totalDue.compareTo(BigDecimal.ZERO) < 0) {
+//                totalDue = BigDecimal.ZERO;
+//            }
 
             Customer owner = account.getAccountOwner();
             String address = owner.getStreet() + ", " + owner.getCity() + ", " + owner.getState() + ", " + owner.getZip();

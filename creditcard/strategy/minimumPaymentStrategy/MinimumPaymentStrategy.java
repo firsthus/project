@@ -6,4 +6,5 @@ import java.math.BigDecimal;
 
 public interface MinimumPaymentStrategy {
     BigDecimal minimumPayment(Account account);
+    BigDecimal getRate();
 }

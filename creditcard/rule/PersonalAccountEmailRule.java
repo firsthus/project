@@ -11,16 +11,18 @@ public class PersonalAccountEmailRule implements EmailRule {
     @Override
     public void apply(Account account, String message, BigDecimal amount) {
         if (account.getAccountOwner() != null) {//todo: check PersonalAccount
-            BigDecimal threshold = BigDecimal.valueOf(400);
-            if (amount.compareTo(threshold) > 0 || account.getBalance().compareTo(BigDecimal.ZERO) < 0) {
-                sendEmail(account, message, amount);
+            String emailMessage = "";
+            if(amount.compareTo(threshold) > 0) {
+                emailMessage = String.format("Account %s - The %s amount was larger than ", account.getAccountNumber(), message) + threshold + "$";
+            } else {
+                emailMessage = String.format("Account %s - Balance is less than 0", account.getAccountNumber());
             }
+            sendEmail(account, emailMessage, amount);
         }
     }
 
     private void sendEmail(Account account, String message, BigDecimal amount) {
-        System.out.println(
-                String.format("Sending email: account %s - The %s amount was larger than ", account.getAccountNumber(), message) + threshold + "$");
+        System.out.println("Sending email: " + message);
 
     }
 }

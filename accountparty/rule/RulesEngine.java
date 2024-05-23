@@ -19,6 +19,7 @@ public class RulesEngine {
     }
 
     public void applyRules(Account account, String message, BigDecimal amount) {
+
         for (EmailRule rule : emailRules) {
             rule.apply(account, message, amount);
         }
