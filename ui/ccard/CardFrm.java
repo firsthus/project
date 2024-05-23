@@ -1,6 +1,14 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.ccard;
 
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CCCustomer;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CreditCardAccount;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.service.impl.CreditCardAccountServiceImpl;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.service.impl.CustomerServiceImpl;
+
 import java.awt.BorderLayout;
+import java.util.Collection;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -16,13 +24,15 @@ public class CardFrm extends javax.swing.JFrame
     /****
      * init variables in the object
      ****/
-    String clientName,street,city, zip, state,accountType,amountDeposit,expdate, ccnumber;
+    String clientName, street, city, zip, state, accountType, amountDeposit, expdate, ccnumber, accountNumber;
     boolean newaccount;
     private DefaultTableModel model;
     private JTable JTable1;
     private JScrollPane JScrollPane1;
     CardFrm thisframe;
     private Object rowdata[];
+	CustomerServiceImpl customerService = new CustomerServiceImpl();
+	CreditCardAccountServiceImpl creditCardAccountService = new CreditCardAccountServiceImpl(new AccountRepository());
     
 	public CardFrm()
 	{
@@ -49,6 +59,7 @@ public class CardFrm extends javax.swing.JFrame
         model.addColumn("Exp date");
         model.addColumn("Type");
         model.addColumn("Balance");
+		model.addColumn("accountNumber");
         rowdata = new Object[7];
         newaccount=false;
         
@@ -206,6 +217,7 @@ public class CardFrm extends javax.swing.JFrame
             rowdata[2] = expdate;
             rowdata[3] = accountType;
             rowdata[4] = "0";
+			rowdata[5] = accountNumber;
             model.addRow(rowdata);
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
@@ -217,7 +229,7 @@ public class CardFrm extends javax.swing.JFrame
 
 	void JButtonGenerateBill_actionPerformed(java.awt.event.ActionEvent event)
 	{
-		JDialogGenBill billFrm = new JDialogGenBill();
+		JDialogGenBill billFrm = new JDialogGenBill(thisframe);
 		billFrm.setBounds(450, 20, 400, 350);
 		billFrm.show();
 	    
@@ -229,9 +241,10 @@ public class CardFrm extends javax.swing.JFrame
         int selection = JTable1.getSelectionModel().getMinSelectionIndex();
         if (selection >=0){
             String name = (String)model.getValueAt(selection, 0);
-    	    
+            String accountNumber = (String)model.getValueAt(selection, 5);
+
 		    //Show the dialog for adding deposit amount for the current mane
-		    JDialog_Deposit dep = new JDialog_Deposit(thisframe,name);
+		    JDialog_Deposit dep = new JDialog_Deposit(thisframe,name, accountNumber);
 		    dep.setBounds(430, 15, 275, 140);
 		    dep.show();
     		
@@ -252,9 +265,10 @@ public class CardFrm extends javax.swing.JFrame
         int selection = JTable1.getSelectionModel().getMinSelectionIndex();
         if (selection >=0){
             String name = (String)model.getValueAt(selection, 0);
+            String accountNumber = (String)model.getValueAt(selection, 5);
 
 		    //Show the dialog for adding withdraw amount for the current mane
-		    JDialog_Withdraw wd = new JDialog_Withdraw(thisframe,name);
+		    JDialog_Withdraw wd = new JDialog_Withdraw(thisframe,name, accountNumber);
 		    wd.setBounds(430, 15, 275, 140);
 		    wd.show();
     		
