@@ -10,7 +10,7 @@ public class CreditCardAccountFactory implements AccountFactory {
 
 
     @Override
-    public Account createNewAccountForCustomer(Customer customer, AccountTypeFactory accountTypeFactory) {
+    public CreditCardAccount createNewAccountForCustomer(Customer customer, AccountTypeFactory accountTypeFactory) {
         if(accountTypeFactory instanceof CreditCardAccountTypeFactory factory){
             return new CreditCardAccount(customer, factory.provide());
         }
