@@ -96,4 +96,7 @@ public abstract class Customer {
     public void setZip(String zip) {
         this.zip = zip;
     }
+
+    public abstract  String getType();
+
 }

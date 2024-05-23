@@ -9,16 +9,18 @@ import java.math.BigDecimal;
 public class PersonalAccountEmailRule implements EmailRule {
     private final BigDecimal threshold = BigDecimal.valueOf(500);
     @Override
-    public void apply(Account account, BigDecimal amount) {
-        if (account.getAccountOwner() != null) {//todo: check PersonalAccount
+    public void apply(Account account, String message, BigDecimal amount) {
+        if (account.getAccountOwner().getType() != null && account.getAccountOwner().getType().equals("PERSONAL")) {//todo: check CompanyAccount {//todo: check PersonalAccount
             BigDecimal threshold = BigDecimal.valueOf(400);
             if (amount.compareTo(threshold) > 0 || account.getBalance().compareTo(BigDecimal.ZERO) < 0) {
-                sendEmail(account, amount);
+                sendEmail(account, message, amount);
             }
         }
     }
 
-    private void sendEmail(Account account, BigDecimal amount) {
-        System.out.println("Send email to personal: The amount was larger than " + threshold);
+    private void sendEmail(Account account, String message, BigDecimal amount) {
+        System.out.println(
+                String.format("Sending email to personal: account %s - The %s amount was larger than ", account.getAccountNumber(), message) + amount + "$");
+
     }
 }

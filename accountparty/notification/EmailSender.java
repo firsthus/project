@@ -23,7 +23,7 @@ public class EmailSender implements Observer {
     }
 
     @Override
-    public void send(Account account, BigDecimal amount) {
-        rulesEngine.applyRules(account, amount);
+    public void send(Account account, String message, BigDecimal amount) {
+        rulesEngine.applyRules(account, message, amount);
     }
 }
