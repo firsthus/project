@@ -1,5 +1,7 @@
 package edu.mum.cs.cs525.labs.exercises.project.accountparty.service;
 
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.notification.TransactionObservable;
+
 import java.math.BigDecimal;
 
 public interface AccountTransactionService {
@@ -7,4 +9,5 @@ public interface AccountTransactionService {
     void withdraw(String accountNumber, BigDecimal amount);
     void transferFunds(String fromAccountNumber, String toAccountNumber, BigDecimal amount, String description);
     String generateReport();
+    TransactionObservable getTransactionObservable();
 }

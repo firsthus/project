@@ -1,19 +1,29 @@
 package edu.mum.cs.cs525.labs.exercises.project.accountparty.notification;
 
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.AccountEntry;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.rule.RulesEngine;
+
+import java.math.BigDecimal;
+
 public class EmailSender implements Observer {
 
+    private final RulesEngine rulesEngine;
     private static EmailSender INSTANCE;
-    private EmailSender() {}
 
-    public static EmailSender getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new EmailSender();
+    private EmailSender(RulesEngine rulesEngine) {
+        this.rulesEngine = rulesEngine;
+    }
+
+    public static EmailSender getInstance(RulesEngine rulesEngine) {
+        if (INSTANCE == null) {
+            INSTANCE = new EmailSender(rulesEngine);
+        }
         return INSTANCE;
     }
+
     @Override
-    public void send(String accountEmail, String message) {
-        if (accountEmail.isEmpty())
-            return;
-        System.out.println("Email sent to " + accountEmail + " with message: " + message);
+    public void send(Account account, BigDecimal amount) {
+        rulesEngine.applyRules(account, amount);
     }
 }
