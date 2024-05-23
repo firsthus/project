@@ -6,6 +6,7 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.notification.Transac
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public abstract class AccountService implements AccountTransactionService {
 
@@ -54,4 +55,14 @@ public abstract class AccountService implements AccountTransactionService {
     public void addTransactionObserver(Observer observer) {
         transactionObservable.addObserver(observer);
     }
+
+
+    public void addInterestToAllAccounts() {
+        List<Account> accounts = accountRepository.getAllAccounts();
+        for (Account account : accounts) {
+            account.addInterest();
+            accountRepository.update(account);
+        }
+    }
+
 }

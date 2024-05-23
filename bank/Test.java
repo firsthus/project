@@ -28,7 +28,7 @@ public class Test {
         // Create accounts and customers
         Customer johnDoe = new Company("John Doe", "john.doe@example.com", "1000 Main", "Fairfield", "IA", "52556", 10);
 
-        Account johnsAccount = new BankingAccount("12345", johnDoe, null);
+        Account johnsAccount = new BankingAccount(johnDoe, null);
 
         johnDoe.addAccount(johnsAccount);
         accountRepository.save(johnsAccount);

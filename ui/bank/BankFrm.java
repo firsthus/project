@@ -1,16 +1,16 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
 
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountService;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.CustmerService;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.BankAccountService;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.CustomerService;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.*;
+import java.awt.BorderLayout;
 
 /**
  * A basic JFC based application.
@@ -27,13 +27,25 @@ public class BankFrm extends javax.swing.JFrame
     private JScrollPane JScrollPane1;
     BankFrm myframe;
     private Object rowdata[];
-	CustmerService custmerService=new CustomerService();
+	CustmerService custmerService = new CustomerService();
 	BankAccountService accountService = new BankAccountService(new AccountRepository());
 
     
 	public BankFrm()
 	{
 		myframe = this;
+
+//		Customer person = custmerService.CreateCustmer("Festus Audu", "festus@cs.mum.edu", "1000 N 4th St",
+//				"Santa Clara","CA","95050", LocalDate.of(1990, 12, 12));
+//		Account account = accountService.createAccount(person, "Ch");
+//
+//		Customer person2 = custmerService.CreateCustmer("Malik Amman", "malik@cs.mum.edu", "1000 N 4th St",
+//				"Santa Clara","CA","95050", LocalDate.of(1999, 12, 12));
+//		Account account2 = accountService.createAccount(person2, "S");
+//
+//		Customer person3 = custmerService.CreateCustmer("Dormanic", "domanic@cs.mum.edu", "1000 N 4th St",
+//				"Santa Clara","CA","95050", 4);
+//		Account account3 = accountService.createAccount(person3, "S");
 
 		setTitle("Bank Application.");
 		setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
@@ -307,20 +319,15 @@ public class BankFrm extends javax.swing.JFrame
 		
 		
 	}
-	
+
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event)
 	{
+
 		  JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
-		  accountService.getAccountRepository().getAllAccounts().forEach(e ->{
-			  if(!(e.getBalance().equals(0))){
-				  e.addInterest();
-			  }else{
-				  System.out.println("your account balance is zero sorry we cannot add interest to it");
-			  }
+		  accountService.addInterestToAllAccounts();
+		  accountService.getAccountRepository().getAllAccounts().forEach(account -> {
+			  System.out.println("Account Number: " + account.getAccountNumber() + " Balance: " + account.getBalance());
 		  });
-		accountService.getAccountRepository().getAccounts().forEach(e -> System.out.println(e.getBalance()));
-
-
 
 	}
 }

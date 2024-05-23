@@ -1,9 +1,6 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
 
-import java.awt.*;
 import java.math.BigDecimal;
-import javax.swing.*;
 
 
 
@@ -88,11 +85,7 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
         parentframe.amountDeposit=JTextField_AMT.getText();
-		Account account =parentframe.accountService.getAccountRepository().findByAccountNumber(parentframe.accountnr);
-		account.withdraw(new BigDecimal(parentframe.amountDeposit));
-
-
-
+		parentframe.accountService.withdraw(accnr, new BigDecimal(parentframe.amountDeposit));
 		dispose();
 	}
 
