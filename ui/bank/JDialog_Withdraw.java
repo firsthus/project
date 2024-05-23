@@ -86,6 +86,7 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 	{
         parentframe.amountDeposit=JTextField_AMT.getText();
 		parentframe.accountService.withdraw(accnr, new BigDecimal(parentframe.amountDeposit));
+
 		dispose();
 	}
 

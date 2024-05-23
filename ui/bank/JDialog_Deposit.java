@@ -87,6 +87,7 @@ public class JDialog_Deposit extends javax.swing.JDialog
         parentframe.amountDeposit=JTextField_Deposit.getText();
 
 		parentframe.accountService.deposit(accnr, new BigDecimal(parentframe.amountDeposit));
+
         dispose();
 	}
 
