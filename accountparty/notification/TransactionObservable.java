@@ -18,9 +18,9 @@ public class TransactionObservable {
         observers.remove(observer);
     }
 
-    public void notifyObservers(Account account, BigDecimal amount) {
+    public void notifyObservers(Account account, String message, BigDecimal amount) {
         for (Observer observer : observers) {
-            observer.send(account, amount);
+            observer.send(account, message, amount);
         }
     }
 }

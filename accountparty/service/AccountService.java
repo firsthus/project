@@ -25,14 +25,14 @@ public abstract class AccountService implements AccountTransactionService {
         Account account = accountRepository.findByAccountNumber(accountNumber);
         account.deposit(amount);
         accountRepository.update(account);
-        transactionObservable.notifyObservers(account, amount);
+        transactionObservable.notifyObservers(account, "deposit", amount);
     }
 
     public void withdraw(String accountNumber, BigDecimal amount) {
         Account account = accountRepository.findByAccountNumber(accountNumber);
         account.withdraw(amount);
         accountRepository.update(account);
-        transactionObservable.notifyObservers(account, amount);
+        transactionObservable.notifyObservers(account, "withdraw", amount);
     }
 
     public void transferFunds(String fromAccountNumber, String toAccountNumber, BigDecimal amount, String description) {

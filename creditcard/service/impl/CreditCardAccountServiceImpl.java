@@ -5,8 +5,12 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.AccountEntry;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.TransactionType;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.factory.AccountTypeFactory;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.notification.EmailSender;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.rule.RulesEngine;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountService;
+import edu.mum.cs.cs525.labs.exercises.project.bank.rule.CompanyAccountEmailRule;
+import edu.mum.cs.cs525.labs.exercises.project.bank.rule.PersonalAccountEmailRule;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CCCustomer;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CreditCardAccount;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.BronzeCreditCardTypeFactory;
@@ -24,6 +28,13 @@ public class CreditCardAccountServiceImpl extends AccountService {
 
     public CreditCardAccountServiceImpl(AccountRepository accountRepository) {
         super(accountRepository);
+
+        RulesEngine rulesEngine = new RulesEngine();
+
+        // Adding rules
+        rulesEngine.addRule(new CompanyAccountEmailRule());
+        rulesEngine.addRule(new PersonalAccountEmailRule());
+        addTransactionObserver(EmailSender.getInstance(rulesEngine));
     }
 
     public CreditCardAccount createCreditCardAccountForCustomer(CCCustomer customer, String creditCardType) {

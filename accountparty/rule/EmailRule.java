@@ -6,5 +6,5 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.AccountEntry;
 import java.math.BigDecimal;
 
 public interface EmailRule {
-	void apply(Account account, BigDecimal amount);
+	void apply(Account account, String message, BigDecimal amount);
 }

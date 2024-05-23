@@ -129,7 +129,7 @@ public abstract class Account {
         StringBuilder report = new StringBuilder();
         report.append("Account Number: ").append(accountNumber).append("\n");
         report.append("Account Owner: ").append(accountOwner.getName()).append("\n");
-        report.append("Account Type: ").append(accountType).append("\n");
+        report.append("Account Type: ").append(getAccountOwner().getType()).append("\n");
         report.append("Balance: ").append(balance).append("\n");
         report.append("Entries: ").append("\n");
 

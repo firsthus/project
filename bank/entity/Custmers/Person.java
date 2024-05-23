@@ -16,4 +16,7 @@ public class Person extends Customer {
         return birthDate;
     }
 
+    public String getType() {
+        return "PERSONAL";
+    }
 }
