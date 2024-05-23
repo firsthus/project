@@ -8,6 +8,7 @@ import edu.mum.cs.cs525.labs.exercises.project.accountparty.factory.AccountTypeF
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountService;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CCCustomer;
+import edu.mum.cs.cs525.labs.exercises.project.creditcard.entity.CreditCardAccount;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.BronzeCreditCardTypeFactory;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.CreditCardAccountFactory;
 import edu.mum.cs.cs525.labs.exercises.project.creditcard.factory.GoldCreditCardTypeFactory;
@@ -25,15 +26,16 @@ public class CreditCardAccountServiceImpl extends AccountService {
         super(accountRepository);
     }
 
-    public Account createCreditCardAccountForCustomer(CCCustomer customer, String creditCardType) {
+    public CreditCardAccount createCreditCardAccountForCustomer(CCCustomer customer, String creditCardType) {
         AccountTypeFactory creditCard = switch (creditCardType) {
             case "Gold" -> new GoldCreditCardTypeFactory();
             case "Silver" -> new SilverCreditCardTypeFactory();
             case "Bronze" -> new BronzeCreditCardTypeFactory();
             default -> throw new IllegalArgumentException("Unknown credit card type!");
         };
-        Account customerWithCreditCard = new CreditCardAccountFactory().createNewAccountForCustomer(customer, creditCard);
+        CreditCardAccount customerWithCreditCard = new CreditCardAccountFactory().createNewAccountForCustomer(customer, creditCard);
         this.getAccountRepository().save(customerWithCreditCard);
+
         return customerWithCreditCard;
     }
 
