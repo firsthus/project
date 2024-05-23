@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 public class CheckingAccountStrategy implements InterestCalculationStrategy {
     private static CheckingAccountStrategy checkingStrategy;
+    private static final BigDecimal INTEREST_RATE = BigDecimal.valueOf(0.02);
 
     private CheckingAccountStrategy(){
 
@@ -14,7 +15,7 @@ public class CheckingAccountStrategy implements InterestCalculationStrategy {
 
     @Override
     public BigDecimal calculateInterest(Account account) {
-           return account.getBalance().multiply(BigDecimal.valueOf(0.02));
+           return account.getBalance().multiply(INTEREST_RATE);
     }
 
     public static CheckingAccountStrategy getInstance(){
@@ -25,6 +26,9 @@ public class CheckingAccountStrategy implements InterestCalculationStrategy {
 
     }
 
+    public BigDecimal getRate() {
+        return INTEREST_RATE;
+    }
 }
 
 
