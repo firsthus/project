@@ -9,6 +9,9 @@ import edu.mum.cs.cs525.labs.exercises.project.bank.factory.BankAccountFactory;
 import edu.mum.cs.cs525.labs.exercises.project.bank.factory.CheckingTypeFactory;
 import edu.mum.cs.cs525.labs.exercises.project.bank.factory.SavingTypeFactory;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public class BankAccountService extends AccountService {
 
 
@@ -37,7 +40,17 @@ public class BankAccountService extends AccountService {
         return account.getAccountNumber();
     }
 
+    public List<Account> getAllAccounts() {
+        return this.getAccountRepository().getAllAccounts();
+    }
 
+    public BigDecimal getBalance(Account account) {
+        return account.getBalance();
+    }
+
+    public Account getAccount(String accountNumber) {
+        return this.getAccountRepository().findByAccountNumber(accountNumber);
+    }
 
 
     @Override

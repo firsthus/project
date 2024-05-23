@@ -1,5 +1,6 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
 
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.CustmerService;
 import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.BankAccountService;
@@ -11,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
+import java.math.BigDecimal;
 
 /**
  * A basic JFC based application.
@@ -286,8 +288,12 @@ public class BankFrm extends javax.swing.JFrame
 		    // compute new amount
             long deposit = Long.parseLong(amountDeposit);
             String samount = (String)model.getValueAt(selection, 5);
-            long currentamount = Long.parseLong(samount);
-		    long newamount=currentamount+deposit;
+//            long currentamount = Long.parseLong(samount);
+
+			BigDecimal currentamount = new BigDecimal(samount);
+			BigDecimal newamount=currentamount.add(BigDecimal.valueOf(deposit));
+
+//		    long newamount=currentamount+deposit;
 		    model.setValueAt(String.valueOf(newamount),selection, 5);
 		}
 		
@@ -309,10 +315,15 @@ public class BankFrm extends javax.swing.JFrame
 		    // compute new amount
             long deposit = Long.parseLong(amountDeposit);
             String samount = (String)model.getValueAt(selection, 5);
-            long currentamount = Long.parseLong(samount);
-		    long newamount=currentamount-deposit;
+
+			BigDecimal currentamount = new BigDecimal(samount);
+			BigDecimal newamount=currentamount.subtract(BigDecimal.valueOf(deposit));
+
+//			long currentamount = Long.parseLong(samount);
+//		    long newamount=currentamount-deposit;
 		    model.setValueAt(String.valueOf(newamount),selection, 5);
-		    if (newamount <0){
+//		    if (newamount <0){
+			if(newamount.equals(0)){
 		       JOptionPane.showMessageDialog(JButton_Withdraw, " Account "+accnr+" : balance is negative: $"+String.valueOf(newamount)+" !","Warning: negative balance",JOptionPane.WARNING_MESSAGE);
 		    }
 		}
@@ -325,9 +336,23 @@ public class BankFrm extends javax.swing.JFrame
 
 		  JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
 		  accountService.addInterestToAllAccounts();
-		  accountService.getAccountRepository().getAllAccounts().forEach(account -> {
+
+		  accountService.getAllAccounts().forEach(account -> {
 			  System.out.println("Account Number: " + account.getAccountNumber() + " Balance: " + account.getBalance());
 		  });
 
+		  for(int i=0;i<model.getRowCount();i++){
+			  String accnr = (String) model.getValueAt(i, 0);
+			  Account account= accountService.getAccount(accnr);
+			  BigDecimal newBalance = accountService.getBalance(account);
+			  updateAmountField(i, newBalance);
+
+		  }
+
 	}
+
+	public void updateAmountField(int row, BigDecimal newAmount) {
+		model.setValueAt(String.valueOf(newAmount), row, 5);
+	}
+
 }
