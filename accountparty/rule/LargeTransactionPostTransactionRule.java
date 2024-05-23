@@ -1,10 +1,11 @@
 package edu.mum.cs.cs525.labs.exercises.project.accountparty.rule;
 
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.AccountEntry;
 
 import java.math.BigDecimal;
 
-public class LargeTransactionPostTransactionRule implements PostTransactionRule {
+public class LargeTransactionPostTransactionRule implements EmailRule {
     private final BigDecimal threshold;
     private final String message;
 
