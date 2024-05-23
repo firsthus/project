@@ -33,6 +33,12 @@ public class BankAccountService extends AccountService {
 
     }
 
+    public String getAccountNumber(Account account) {
+        return account.getAccountNumber();
+    }
+
+
+
 
     @Override
     public String generateReport() {

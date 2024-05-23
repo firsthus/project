@@ -1,5 +1,11 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
 
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountService;
+import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.CustmerService;
+import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.BankAccountService;
+import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.CustomerService;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
@@ -14,13 +20,16 @@ public class BankFrm extends javax.swing.JFrame
     /****
      * init variables in the object
      ****/
-    String accountnr, clientName,street,city,zip,state,accountType,clientType,amountDeposit,NumberOfEmployee,Email;
+    String accountnr, clientName,street,city,zip,state,accountType,clientType,amountDeposit,NumberOfEmployee,Email,BirthOfDate;
     boolean newaccount;
     private DefaultTableModel model;
     private JTable JTable1;
     private JScrollPane JScrollPane1;
     BankFrm myframe;
     private Object rowdata[];
+	CustmerService custmerService=new CustomerService();
+	BankAccountService accountService = new BankAccountService(new AccountRepository());
+
     
 	public BankFrm()
 	{
@@ -302,6 +311,16 @@ public class BankFrm extends javax.swing.JFrame
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event)
 	{
 		  JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
-	    
+		  accountService.getAccountRepository().getAllAccounts().forEach(e ->{
+			  if(!(e.getBalance().equals(0))){
+				  e.addInterest();
+			  }else{
+				  System.out.println("your account balance is zero sorry we cannot add interest to it");
+			  }
+		  });
+		accountService.getAccountRepository().getAccounts().forEach(e -> System.out.println(e.getBalance()));
+
+
+
 	}
 }

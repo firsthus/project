@@ -1,5 +1,8 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
+
 import java.awt.*;
+import java.math.BigDecimal;
 import javax.swing.*;
 
 public class JDialog_Deposit extends javax.swing.JDialog
@@ -82,7 +85,12 @@ public class JDialog_Deposit extends javax.swing.JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
+
+
         parentframe.amountDeposit=JTextField_Deposit.getText();
+
+		Account account =parentframe.accountService.getAccountRepository().findByAccountNumber(parentframe.accountnr);
+		account.deposit(new BigDecimal(parentframe.amountDeposit));
         dispose();
 	}
 
