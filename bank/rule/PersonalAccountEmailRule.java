@@ -20,7 +20,7 @@ public class PersonalAccountEmailRule implements EmailRule {
 
     private void sendEmail(Account account, String message, BigDecimal amount) {
         System.out.println(
-                String.format("Sending email to personal: account %s - The %s amount was larger than ", account.getAccountNumber(), message) + amount + "$");
+                String.format("Sending email to personal: account %s - The %s amount was larger than ", account.getAccountNumber(), message) + threshold + "$");
 
     }
 }
