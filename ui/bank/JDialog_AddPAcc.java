@@ -3,7 +3,11 @@ package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
 		A basic implementation of the JDialog class.
 */
 
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
+
 import java.awt.*;
+import java.time.LocalDate;
 import javax.swing.*;
 
 public class JDialog_AddPAcc extends javax.swing.JDialog
@@ -178,12 +182,29 @@ public class JDialog_AddPAcc extends javax.swing.JDialog
        parentframe.city=JTextField_CT.getText();
        parentframe.zip=JTextField_ZIP.getText();
        parentframe.state=JTextField_ST.getText();
+	   parentframe.BirthOfDate=JTextField_BD.getText();
        if (JRadioButton_Chk.isSelected())
            parentframe.accountType="Ch";
            else
            parentframe.accountType="S";
 	   parentframe.newaccount=true;
-       dispose();
+		Customer person = parentframe.custmerService.CreateCustmer(parentframe.clientName,parentframe.Email,parentframe.street,
+				parentframe.city,parentframe.state,parentframe.zip, LocalDate.parse(parentframe.BirthOfDate));
+
+//		try{
+//			if(parentframe.clientName == null || parentframe.Email == null ||parentframe.street == null ||
+//					parentframe.city == null || parentframe.state == null ||parentframe.zip == null ){
+//				throw new Exception();
+//			}
+//
+//		}catch (Exception e){
+//			throw new RuntimeException();
+//		}
+
+		Account account = parentframe.accountService.createAccount(person,parentframe.accountType);
+		parentframe.accountnr= account.getAccountNumber();
+		dispose();
+
 	}
 
 	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event)

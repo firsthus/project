@@ -1,14 +1,22 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.factory.AccountFactory;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.factory.CustomerFactory;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
+import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountService;
+import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.CustmerService;
+import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.BankAccountService;
+import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.CustomerService;
+import edu.mum.cs.cs525.labs.exercises.project.bank.entity.Custmers.Company;
 import edu.mum.cs.cs525.labs.exercises.project.bank.factory.CompanyFactoryForBank;
 
 
 public class JDialog_AddCompAcc extends javax.swing.JDialog
 {
     private BankFrm parentframe;
-    
+
+
 	public JDialog_AddCompAcc(BankFrm parent)
 	{
 		super(parent);
@@ -147,7 +155,6 @@ public class JDialog_AddCompAcc extends javax.swing.JDialog
 	   parentframe.Email=JTextField_EM.getText();
 
 
-
        if (JRadioButton_Chk.isSelected()) {
 		   parentframe.accountType = "Ch";
 	   }
@@ -155,9 +162,26 @@ public class JDialog_AddCompAcc extends javax.swing.JDialog
 		   parentframe.accountType = "S";
 	   }
 	   parentframe.newaccount=true;
-	   dispose();
+
+	   // to do: make sure that number of employee is an integer
 
 
+		Customer company = parentframe.custmerService.CreateCustmer(parentframe.clientName,parentframe.Email,parentframe.street,
+				parentframe.city,parentframe.state,parentframe.zip, Integer.parseInt(parentframe.NumberOfEmployee));
+
+		try{
+			if(parentframe.clientName == null || parentframe.Email == null ||parentframe.street == null ||
+					parentframe.city == null || parentframe.state == null ||parentframe.zip == null || parentframe.NumberOfEmployee == null){
+				throw new Exception();
+			}
+
+		}catch (Exception e){
+			throw new RuntimeException();
+		}
+
+		Account account = parentframe.accountService.createAccount(company,parentframe.accountType);
+		parentframe.accountnr=account.getAccountNumber();
+		dispose();
 
 
 
