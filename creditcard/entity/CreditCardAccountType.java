@@ -26,4 +26,7 @@ public abstract class CreditCardAccountType extends AccountType {
 
     protected abstract long getCardValidityInYears();
 
+    public MinimumPaymentStrategy getMinimumPaymentStrategy() {
+        return minimumPaymentStrategy;
+    }
 }

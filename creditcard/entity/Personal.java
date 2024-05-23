@@ -12,4 +12,8 @@ public class Personal extends Customer {
         super(name, email, street, city, state, zip);
         this.birthDate = birthDate;
     }
+
+    public String getType() {
+        return "PERSONAL";
+    }
 }

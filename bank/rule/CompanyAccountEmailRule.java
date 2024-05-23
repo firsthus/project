@@ -8,13 +8,14 @@ import java.math.BigDecimal;
 
 public class CompanyAccountEmailRule implements EmailRule {
     @Override
-    public void apply(Account account, BigDecimal amount) {
-        if (account.getAccountOwner() != null) {//todo: check CompanyAccount
-            sendEmail(account, amount);
+    public void apply(Account account, String message, BigDecimal amount) {
+        if (account.getAccountOwner().getType() != null && account.getAccountOwner().getType().equals("COMPANY")) {//todo: check CompanyAccount
+            sendEmail(account, message, amount);
         }
     }
 
-    private void sendEmail(Account account, BigDecimal amount) {
-        System.out.println("Sending notification to company ");
+    private void sendEmail(Account account, String message, BigDecimal amount) {
+        System.out.println(
+                String.format("Sending notification to company: account %s - %s ", account.getAccountNumber(), message) + amount + "$");
     }
 }

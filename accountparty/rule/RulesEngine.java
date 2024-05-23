@@ -8,19 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RulesEngine {
-    private final List<EmailRule> postTransactionRules;
+    private final List<EmailRule> emailRules;
 
     public RulesEngine() {
-        this.postTransactionRules = new ArrayList<>();
+        this.emailRules = new ArrayList<>();
     }
 
-    public void addRule(EmailRule postTransactionRule) {
-        postTransactionRules.add(postTransactionRule);
+    public void addRule(EmailRule emailRule) {
+        emailRules.add(emailRule);
     }
 
-    public void applyRules(Account account, BigDecimal amount) {
-        for (EmailRule postTransactionRule : postTransactionRules) {
-            postTransactionRule.apply(account, amount);
+    public void applyRules(Account account, String message, BigDecimal amount) {
+
+        for (EmailRule rule : emailRules) {
+            rule.apply(account, message, amount);
         }
     }
 }

@@ -12,8 +12,8 @@ public class Company extends Customer {
         return NumberOfEmployees;
     }
 
-
-
-
+    public String getType() {
+        return "COMPANY";
+    }
 
 }
