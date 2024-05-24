@@ -1,15 +1,6 @@
 package edu.mum.cs.cs525.labs.exercises.project.ui.bank;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Account;
 import edu.mum.cs.cs525.labs.exercises.project.accountparty.entity.Customer;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.factory.AccountFactory;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.factory.CustomerFactory;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.repository.AccountRepository;
-import edu.mum.cs.cs525.labs.exercises.project.accountparty.service.AccountService;
-import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.CustmerService;
-import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.BankAccountService;
-import edu.mum.cs.cs525.labs.exercises.project.bank.ServiceLayer.Implmentation.CustomerService;
-import edu.mum.cs.cs525.labs.exercises.project.bank.entity.Custmers.Company;
-import edu.mum.cs.cs525.labs.exercises.project.bank.factory.CompanyFactoryForBank;
 
 
 public class JDialog_AddCompAcc extends javax.swing.JDialog
